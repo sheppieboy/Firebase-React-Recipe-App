@@ -1,7 +1,7 @@
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { Button, Paper, Typography, Grid } from "@mui/material";
+import { Button, Paper, Typography, Container } from "@mui/material";
 
 function SignIn({ user }) {
   let navigate = useNavigate();
@@ -16,13 +16,7 @@ function SignIn({ user }) {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      margin={10}
-    >
+    <Container sx={{ mt: 15 }}>
       <Paper elevation={4} sx={{ m: 3, w: 10 }}>
         <Typography variant="h3" m={3}>
           {"Sign in to see some yummy recipes!"}
@@ -35,7 +29,7 @@ function SignIn({ user }) {
           Google Sign In
         </Button>
       </Paper>
-    </Grid>
+    </Container>
   );
 }
 
