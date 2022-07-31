@@ -16,7 +16,14 @@ function SignIn({ user }) {
   };
 
   return (
-    <Container sx={{ mt: 15 }}>
+    <Container
+      sx={{
+        mt: 15,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Paper elevation={4} sx={{ m: 3, w: 10 }}>
         <Typography variant="h3" m={3}>
           {"Sign in to see some yummy recipes!"}
