@@ -43,6 +43,8 @@ const Home = () => {
           <RecipeCard fakeData={fakeData} />
           <RecipeCard fakeData={fakeData} />
           <RecipeCard fakeData={fakeData} />
+          <RecipeCard fakeData={fakeData} />
+          <RecipeCard fakeData={fakeData} />
         </Grid>
       </Grid>
 
