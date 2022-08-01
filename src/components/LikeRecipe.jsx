@@ -8,19 +8,22 @@ import { auth, db } from "../firebase-config";
 const LikeRecipe = ({ id, likes, likesCount }) => {
   const [user] = useAuthState(auth);
 
-  const likeRef = doc(db, "recipes", id);
+  const likesRef = doc(db, "recipes", id);
+
   const handleLike = () => {
     //remove the like from the likes array in the db
     if (likes?.includes(user.uid)) {
-      updateDoc(likeRef, {
+      const count = likes.length - 1;
+      updateDoc(likesRef, {
         likes: arrayRemove(user.uid),
-      }).catch((err) => {
-        console.error(err);
+        likesCount: count,
       });
     } //add a like to the likes array in the db
     else {
-      updateDoc(likeRef, {
+      const count = likes.length + 1;
+      updateDoc(likesRef, {
         likes: arrayUnion(user.uid),
+        likesCount: count,
       }).catch((err) => {
         console.error(err);
       });
