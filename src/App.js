@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import SignIn from "./pages/SignIn";
 import CreateRecipe from "./pages/CreateRecipes";
+import ViewRecipe from "./pages/ViewRecipe";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/createrecipe" element={<CreateRecipe />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/viewrecipe/id:" element={<ViewRecipe />} />
       </Routes>
     </Router>
   );
