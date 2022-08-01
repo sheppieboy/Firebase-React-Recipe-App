@@ -12,8 +12,9 @@ import { useParams } from "react-router-dom";
 import { db, auth } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import LikeRecipe from "../components/LikeRecipe";
+// import LikeRecipe from "../components/LikeRecipe";
 import DeleteRecipe from "../components/DeleteRecipe";
+import CommentRecipe from "../components/CommentRecipe";
 
 const ViewRecipe = () => {
   const { id } = useParams();
@@ -91,6 +92,9 @@ const ViewRecipe = () => {
             </Typography>
           </Grid>
         </Box>
+        {/* <Box sx={{ mt: 4, ml: 4, mr: 4, pb: 4 }}>
+          <CommentRecipe id={recipe.id} />
+        </Box> */}
       </Paper>
     </Container>
   );
