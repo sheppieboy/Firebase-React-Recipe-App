@@ -55,17 +55,9 @@ const Home = () => {
       {/*MIDDLE GRID */}
       <Grid item xs={6} sx={{ mt: 3, ml: 4 }}>
         <Grid container spacing={3}>
-          {/* {recipes.map((recipe) => (
+          {recipes.map((recipe) => (
             <RecipeCard recipe={recipe} />
-          ))} */}
-          <RecipeCard fakeData={fakeData} />
-          <RecipeCard fakeData={fakeData} />
-          <RecipeCard fakeData={fakeData} />
-          <RecipeCard fakeData={fakeData} />
-          <RecipeCard fakeData={fakeData} />
-          <RecipeCard fakeData={fakeData} />
-          <RecipeCard fakeData={fakeData} />
-          <RecipeCard fakeData={fakeData} />
+          ))}
         </Grid>
       </Grid>
 

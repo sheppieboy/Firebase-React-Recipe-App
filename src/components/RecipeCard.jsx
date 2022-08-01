@@ -36,7 +36,7 @@ const theme = createTheme({
   },
 });
 
-const RecipeCard = ({ fakeData, fakeData: { image, title, description } }) => {
+const RecipeCard = ({ recipe: { image, title, description } }) => {
   return (
     <Grid item xs={4}>
       <ThemeProvider theme={theme}>
@@ -46,7 +46,14 @@ const RecipeCard = ({ fakeData, fakeData: { image, title, description } }) => {
             <Grid item>
               <Typography variant="subtitle1">{title}</Typography>
             </Grid>
-            <Grid item xs>
+            <Grid
+              item
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+              }}
+            >
               <Button size="small" variant="contained">
                 Go To
               </Button>

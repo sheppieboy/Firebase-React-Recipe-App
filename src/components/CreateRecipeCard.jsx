@@ -131,6 +131,7 @@ const CreateRecipeCard = () => {
           label="Add Recipe Description"
           value={recipeData.description}
           multiline
+          fullWidth
           maxRows={20}
           onChange={(e) => handleChange(e)}
         />
@@ -142,6 +143,7 @@ const CreateRecipeCard = () => {
           value={recipeData.ingredients}
           multiline
           maxRows={20}
+          fullWidth
           onChange={(e) => handleChange(e)}
         />
       </Box>
@@ -153,6 +155,7 @@ const CreateRecipeCard = () => {
           multiline
           maxRows={20}
           onChange={(e) => handleChange(e)}
+          fullWidth
         />
       </Box>
       <Box sx={{ m: 4 }}>
