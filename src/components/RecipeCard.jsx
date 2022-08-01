@@ -72,22 +72,17 @@ const RecipeCard = ({
                 alignItems: "flex-end",
               }}
             >
-              {user ? (
-                <Link to={`/recipe/${id}`} style={{ textDecoration: "none" }}>
-                  <Button size="small" variant="contained">
-                    Go To
-                  </Button>
-                </Link>
-              ) : (
-                <Button size="small" variant="contained" disabled>
+              <Link to={`/recipe/${id}`} style={{ textDecoration: "none" }}>
+                <Button size="small" variant="contained">
                   Go To
                 </Button>
-              )}
+              </Link>
             </Grid>
           </Grid>
 
           <Box
             sx={{
+              pt: 2,
               display: "flex",
               alignItems: "center",
             }}
@@ -97,28 +92,28 @@ const RecipeCard = ({
             </Typography>
             <AccessTime sx={{ width: 12.5 }} />
             <Typography variant="body2" component="p" marginLeft={0.5}>
-              {createdAt}
+              {`Created At: ${createdAt.toDate().toDateString()}`}
             </Typography>
           </Box>
           <Box sx={{ mt: 2, ml: 0.5, mr: 1 }}>
             <Typography> {description}</Typography>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              mt: 3,
-            }}
-          ></Box>
+
           <Grid container spacing={2}>
             <Grid item xs={4}>
               <LikeRecipe likes={likes} id={id} />
-              <Typography sx={{ ml: 1 }}> {likesCount} likes</Typography>
+              <Typography> {likesCount} likes</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography>{`${commentCount} comments`}</Typography>
+              <Typography
+                sx={{ pt: 2 }}
+              >{`${commentCount} comments`}</Typography>
             </Grid>
-            <Grid item xs={4}></Grid>
+            <Grid item xs={4}>
+              {user && user.uid === userId && (
+                <DeleteRecipe id={id} image={image} />
+              )}
+            </Grid>
           </Grid>
         </Paper>
       </ThemeProvider>
