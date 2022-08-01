@@ -13,73 +13,81 @@ import { db, auth } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import LikeRecipe from "../components/LikeRecipe";
+import DeleteRecipe from "../components/DeleteRecipe";
 
 const ViewRecipe = () => {
   const { id } = useParams();
-  const [recipe, setRecipe] = useState();
+  const [recipe, setRecipe] = useState({});
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    console.log(id);
-    const docRef = doc(db, "recipes", id);
-    onSnapshot(docRef, (snapshot) => {
-      setRecipe({ ...snapshot.data(), id: snapshot.id });
-    });
+    const getPost = (id) => {
+      const recipeRef = doc(db, "recipes", id);
+      onSnapshot(recipeRef, (snapshot) => {
+        setRecipe({ ...snapshot.data(), id: snapshot.id });
+      });
+    };
+    getPost(id);
   }, []);
 
   return (
     <Container sx={{ mt: 15 }}>
-      <Paper elevation={12}>
-        <Box sx={{ pt: 3, mr: 4, ml: 4 }}>
-          <Grid container space={2}>
-            <TextField label=" Recipe Title" value={recipe.title} />
-            <Typography>test</Typography>
-          </Grid>
+      <Paper elevation={16}>
+        <Box sx={{ pt: 2, mt: 5, ml: 4, mr: 4 }}>
+          <Typography variant="h6"> {recipe.title}</Typography>
         </Box>
-        <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
-          <img src={recipe.image} alt={recipe.title} />
-        </Box>
-        <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
+        <Box sx={{ mt: 4, ml: 4, mr: 4 }}>
           <TextField
+            sx={{ pr: 2 }}
+            label="Created By:"
+            multiline
+            maxRows={5}
+            InputLabelProps={{ shrink: true }}
+            value={recipe.userName}
+          />
+
+          {user && user.uid === recipe.userId && (
+            <DeleteRecipe id={id} image={recipe.image} />
+          )}
+        </Box>
+        <Box sx={{ mt: 4, ml: 4, mr: 4 }}>
+          <img src={recipe.image} alt={recipe.title} className="" />
+        </Box>
+        <Box sx={{ mt: 4, ml: 4, mr: 4 }}>
+          <TextField
+            InputLabelProps={{ shrink: true }}
             label="Recipe Description"
+            multiline
+            maxRows={5}
             value={recipe.description}
-            multiline
-            maxRows={20}
             fullWidth
           />
         </Box>
-        <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
+        <Box sx={{ mt: 4, ml: 4, mr: 4 }}>
           <TextField
-            label="Ingredients"
+            InputLabelProps={{ shrink: true }}
+            label="Recipe Ingredients"
+            multiline
+            maxRows={5}
             value={recipe.ingredients}
-            multiline
-            maxRows={20}
             fullWidth
           />
         </Box>
-        <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
+        <Box sx={{ mt: 4, ml: 4, mr: 4 }}>
           <TextField
+            InputLabelProps={{ shrink: true }}
             label="Recipe Instructions"
+            multiline
+            maxRows={5}
             value={recipe.instructions}
             fullWidth
-            multiline
-            maxRows={20}
           />
         </Box>
-        <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
-          <Grid container spacing={2}>
-            <LikeRecipe
-              id={id}
-              likes={recipe.likes}
-              likesCount={recipe.likesCount}
-            />
-            <Typography
-              sx={{ pl: 2, pt: 1.5 }}
-              variant="body2"
-            >{`${recipe.likesCount} likes`}</Typography>
-
-            <Typography sx={{ pl: 75, pt: 1.5 }} variant="body2">
-              {`${recipe.commentCount} comments`}
+        <Box sx={{ mt: 4, ml: 4, mr: 4 }}>
+          <Grid container>
+            <Typography variant="body1">{recipe.likesCount} likes</Typography>
+            <Typography variant="body1" sx={{ pl: 2 }}>
+              {recipe.commentCount} comments
             </Typography>
           </Grid>
         </Box>
