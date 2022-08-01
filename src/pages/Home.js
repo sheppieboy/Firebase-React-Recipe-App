@@ -1,5 +1,8 @@
 import RecipeCard from "../components/RecipeCard";
 import { Grid, Button, Typography, Container } from "@mui/material";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 const fakeData = {
   image:
@@ -10,6 +13,21 @@ const fakeData = {
 };
 
 const Home = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const recipesRef = collection(db, "recipes");
+    const recipesQuery = query(recipesRef, orderBy("createdAt", "desc"));
+    onSnapshot(recipesQuery, (snapshot) => {
+      const recipes = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRecipes(recipes);
+      console.log(recipes);
+    });
+  }, []);
+
   return (
     <Grid container spacing={3} sx={{ mt: 12 }}>
       {/*LEFT HAND SIDE */}
@@ -37,6 +55,9 @@ const Home = () => {
       {/*MIDDLE GRID */}
       <Grid item xs={6} sx={{ mt: 3, ml: 4 }}>
         <Grid container spacing={3}>
+          {/* {recipes.map((recipe) => (
+            <RecipeCard recipe={recipe} />
+          ))} */}
           <RecipeCard fakeData={fakeData} />
           <RecipeCard fakeData={fakeData} />
           <RecipeCard fakeData={fakeData} />

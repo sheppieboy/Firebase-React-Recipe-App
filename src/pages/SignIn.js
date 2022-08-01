@@ -25,7 +25,7 @@ function SignIn({ user }) {
       }}
     >
       <Paper elevation={4} sx={{ m: 3, w: 10 }}>
-        <Typography variant="h3" m={3}>
+        <Typography variant="h4" m={3}>
           {"Sign in to see some yummy recipes!"}
         </Typography>
         <Button
