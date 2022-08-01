@@ -4,12 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCGDi8Qm1ehkajNi23v-L2LGizR8-uDSt8",
-  authDomain: "recipe-app-877c3.firebaseapp.com",
-  projectId: "recipe-app-877c3",
-  storageBucket: "recipe-app-877c3.appspot.com",
-  messagingSenderId: "182464429789",
-  appId: "1:182464429789:web:15c2fc0e83ab6f1d362534",
+  //add firebase config
 };
 
 // Initialize Firebase

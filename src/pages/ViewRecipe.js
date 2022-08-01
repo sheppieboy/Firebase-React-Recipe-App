@@ -14,7 +14,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 // import LikeRecipe from "../components/LikeRecipe";
 import DeleteRecipe from "../components/DeleteRecipe";
-import CommentRecipe from "../components/CommentRecipe";
+// import CommentRecipe from "../components/CommentRecipe";
 
 const ViewRecipe = () => {
   const { id } = useParams();
