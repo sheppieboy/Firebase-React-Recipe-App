@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { AccessTime } from "@mui/icons-material";
 import "./recipe-card.css";
+import LikeRecipe from "./LikeRecipe";
 
 const theme = createTheme({
   components: {
@@ -36,7 +37,7 @@ const theme = createTheme({
   },
 });
 
-const RecipeCard = ({ recipe: { image, title, description } }) => {
+const RecipeCard = ({ recipe: { id, likes, image, title, description } }) => {
   return (
     <Grid item xs={4}>
       <ThemeProvider theme={theme}>
@@ -97,6 +98,10 @@ const RecipeCard = ({ recipe: { image, title, description } }) => {
             <Typography variant="body3" component="p" marginLeft={1.5}>
               {500} reviews
             </Typography>
+          </Box>
+          <Box>
+            <LikeRecipe likes={likes} id={id} />
+            <Typography sx={{ ml: 1 }}> 24 likes</Typography>
           </Box>
           <Box
             sx={{

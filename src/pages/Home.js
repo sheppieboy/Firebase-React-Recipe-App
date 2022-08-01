@@ -4,14 +4,6 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase-config";
 
-const fakeData = {
-  image:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCFz8HnkDgiAeZ41W2rG5aMKEo2Du0eKFGhg&usqp=CAU",
-  title: "Delicious Chicken Breast",
-  description:
-    "The yummiest and juiciest chicken oven baked chicken breast.  This recipe takes only 10 minutes to prepare and will be a guaranteed hit with the family! ",
-};
-
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
 
