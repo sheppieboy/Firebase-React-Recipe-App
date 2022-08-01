@@ -22,11 +22,12 @@ const CreateRecipeCard = () => {
 
   let navigate = useNavigate();
   //check that you can't navigate to this page unless you are signed in
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
+
   const handleImageChange = (e) => {
     setRecipeData({ ...recipeData, image: e.target.files[0] });
     setImageUploadStatus("Image Uploaded");
