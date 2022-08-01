@@ -3,7 +3,6 @@ import {
   Paper,
   Box,
   Typography,
-  Rating,
   createTheme,
   ThemeProvider,
   Button,
@@ -11,6 +10,10 @@ import {
 import { AccessTime } from "@mui/icons-material";
 import "./recipe-card.css";
 import LikeRecipe from "./LikeRecipe";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase-config";
+import { Link } from "react-router-dom";
+import DeleteRecipe from "./DeleteRecipe";
 
 const theme = createTheme({
   components: {
@@ -37,7 +40,21 @@ const theme = createTheme({
   },
 });
 
-const RecipeCard = ({ recipe: { id, likes, image, title, description } }) => {
+const RecipeCard = ({
+  recipe: {
+    id,
+    likes,
+    image,
+    title,
+    description,
+    likesCount,
+    commentCount,
+    createdAt,
+    userName,
+    userId,
+  },
+}) => {
+  const [user] = useAuthState(auth);
   return (
     <Grid item xs={4}>
       <ThemeProvider theme={theme}>
@@ -55,9 +72,17 @@ const RecipeCard = ({ recipe: { id, likes, image, title, description } }) => {
                 alignItems: "flex-end",
               }}
             >
-              <Button size="small" variant="contained">
-                Go To
-              </Button>
+              {user ? (
+                <Link to={`/recipe/${id}`} style={{ textDecoration: "none" }}>
+                  <Button size="small" variant="contained">
+                    Go To
+                  </Button>
+                </Link>
+              ) : (
+                <Button size="small" variant="contained" disabled>
+                  Go To
+                </Button>
+              )}
             </Grid>
           </Grid>
 
@@ -68,11 +93,11 @@ const RecipeCard = ({ recipe: { id, likes, image, title, description } }) => {
             }}
           >
             <Typography variant="body2" sx={{ ml: 0.5, pr: 4 }}>
-              Created By: UserName
+              Created By: {userName}
             </Typography>
             <AccessTime sx={{ width: 12.5 }} />
             <Typography variant="body2" component="p" marginLeft={0.5}>
-              5 hours
+              {createdAt}
             </Typography>
           </Box>
           <Box sx={{ mt: 2, ml: 0.5, mr: 1 }}>
@@ -84,36 +109,17 @@ const RecipeCard = ({ recipe: { id, likes, image, title, description } }) => {
               alignItems: "center",
               mt: 3,
             }}
-          >
-            <Rating
-              size="small"
-              name="read-only"
-              value={4.5}
-              precision={0.5}
-              readOnly
-            />
-            <Typography variant="body2" component="p" marginLeft={0.5}>
-              {4.5}
-            </Typography>
-            <Typography variant="body3" component="p" marginLeft={1.5}>
-              {500} reviews
-            </Typography>
-          </Box>
-          <Box>
-            <LikeRecipe likes={likes} id={id} />
-            <Typography sx={{ ml: 1 }}> 24 likes</Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              ml: 0.5,
-            }}
-          >
-            <Typography variant="h6" component="h3" marginTop={1.5}>
-              From C ${400}
-            </Typography>
-          </Box>
+          ></Box>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <LikeRecipe likes={likes} id={id} />
+              <Typography sx={{ ml: 1 }}> {likesCount} likes</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>{`${commentCount} comments`}</Typography>
+            </Grid>
+            <Grid item xs={4}></Grid>
+          </Grid>
         </Paper>
       </ThemeProvider>
     </Grid>

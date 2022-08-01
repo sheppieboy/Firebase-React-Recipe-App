@@ -1,5 +1,5 @@
 import { IconButton } from "@mui/material";
-import { DeleteForeverRoundedIcon } from "@mui/icons-material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "../firebase-config";
 import { deleteObject, ref } from "firebase/storage";
@@ -7,6 +7,7 @@ import { deleteObject, ref } from "firebase/storage";
 const DeleteRecipe = ({ recipe: { id, image } }) => {
   const deleteRecipe = async () => {
     try {
+      console.log(image, id);
       await deleteDoc(doc(db, "recipes", id));
       const storageRef = ref(storage, image);
       await deleteObject(storageRef);
@@ -16,7 +17,7 @@ const DeleteRecipe = ({ recipe: { id, image } }) => {
   };
   return (
     <IconButton>
-      <DeleteForeverRoundedIcon onClick={deleteRecipe} />
+      <DeleteForeverIcon onClick={deleteRecipe} />
     </IconButton>
   );
 };

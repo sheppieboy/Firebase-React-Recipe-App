@@ -16,7 +16,6 @@ const Home = () => {
         ...doc.data(),
       }));
       setRecipes(recipes);
-      console.log(recipes);
     });
   }, []);
 
@@ -48,7 +47,7 @@ const Home = () => {
       <Grid item xs={6} sx={{ mt: 3, ml: 4 }}>
         <Grid container spacing={3}>
           {recipes.map((recipe) => (
-            <RecipeCard recipe={recipe} />
+            <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </Grid>
       </Grid>

@@ -1,48 +1,87 @@
-import { Container, Typography, Box, Paper, TextField } from "@mui/material";
+import {
+  Container,
+  Paper,
+  TextField,
+  Box,
+  Typography,
+  Grid,
+} from "@mui/material";
+import { onSnapshot, doc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { db, auth } from "../firebase-config";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import LikeRecipe from "../components/LikeRecipe";
 
 const ViewRecipe = () => {
+  const { id } = useParams();
+  const [recipe, setRecipe] = useState();
+  const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    console.log(id);
+    const docRef = doc(db, "recipes", id);
+    onSnapshot(docRef, (snapshot) => {
+      setRecipe({ ...snapshot.data(), id: snapshot.id });
+    });
+  }, []);
+
   return (
-    <Container>
+    <Container sx={{ mt: 15 }}>
       <Paper elevation={12}>
-        <Box sx={{ mt: 4, ml: 4, mr: 4 }}>
-          <Typography variant="h6">Recipe Title</Typography>
+        <Box sx={{ pt: 3, mr: 4, ml: 4 }}>
+          <Grid container space={2}>
+            <TextField label=" Recipe Title" value={recipe.title} />
+            <Typography>test</Typography>
+          </Grid>
         </Box>
         <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
-          <TextField name="title" label="Add Recipe Title" value={"title"} />
-        </Box>
-        <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
-          <img
-            src="https://media.istockphoto.com/photos/cook-taking-ready-chicken-from-the-oven-picture-id1036815628?k=20&m=1036815628&s=612x612&w=0&h=RY171tLJa7Psd2Abu_9FfCX3pmEaTcNSCl_vkaHZh2w="
-            alt="Inputted Recipe"
-            className=""
-          />
+          <img src={recipe.image} alt={recipe.title} />
         </Box>
         <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
           <TextField
-            name="description"
             label="Recipe Description"
-            value={"description"}
+            value={recipe.description}
             multiline
             maxRows={20}
+            fullWidth
           />
         </Box>
         <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
           <TextField
-            name="ingredients"
             label="Ingredients"
-            value={"ingredients"}
+            value={recipe.ingredients}
+            multiline
+            maxRows={20}
+            fullWidth
+          />
+        </Box>
+        <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
+          <TextField
+            label="Recipe Instructions"
+            value={recipe.instructions}
+            fullWidth
             multiline
             maxRows={20}
           />
         </Box>
         <Box sx={{ mt: 4, mr: 4, ml: 4 }}>
-          <TextField
-            name="instructions"
-            label="Recipe Instructions"
-            value={"Instructions"}
-            multiline
-            maxRows={20}
-          />
+          <Grid container spacing={2}>
+            <LikeRecipe
+              id={id}
+              likes={recipe.likes}
+              likesCount={recipe.likesCount}
+            />
+            <Typography
+              sx={{ pl: 2, pt: 1.5 }}
+              variant="body2"
+            >{`${recipe.likesCount} likes`}</Typography>
+
+            <Typography sx={{ pl: 75, pt: 1.5 }} variant="body2">
+              {`${recipe.commentCount} comments`}
+            </Typography>
+          </Grid>
         </Box>
       </Paper>
     </Container>
