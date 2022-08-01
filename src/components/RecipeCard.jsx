@@ -101,18 +101,24 @@ const RecipeCard = ({
 
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <LikeRecipe likes={likes} id={id} />
-              <Typography> {likesCount} likes</Typography>
+              <Box sx={{ pt: 1.5, pl: 1 }}>
+                <LikeRecipe likes={likes} id={id} />
+              </Box>
+              <Box sx={{ pt: 1, pl: 1 }}>
+                <Typography> {likesCount} likes</Typography>
+              </Box>
             </Grid>
             <Grid item xs={4}>
-              <Typography
-                sx={{ pt: 2 }}
-              >{`${commentCount} comments`}</Typography>
+              <Box sx={{ pt: 7 }}>
+                <Typography>{`${commentCount} comments`}</Typography>
+              </Box>
             </Grid>
             <Grid item xs={4}>
-              {user && user.uid === userId && (
-                <DeleteRecipe id={id} image={image} />
-              )}
+              <Box sx={{ pl: 5, pt: 5.5 }}>
+                {user && user.uid === userId && (
+                  <DeleteRecipe id={id} image={image} />
+                )}
+              </Box>
             </Grid>
           </Grid>
         </Paper>
